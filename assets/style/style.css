@@ -1,0 +1,61 @@
+/* File: assets/styles/styles.css */
+:root {
+    /* Box Shadow */
+    --bs: 2px 2px 2px #ccc;
+    /* Text Shadow */
+    --ts: 2px 2px 2px #ccc;
+}
+
+body {
+    /* TODO: What font? */
+    background-color: hsl(240,30%,50%);
+}
+
+header, main, footer {
+    margin-left: auto;
+    margin-right: auto;
+    width: 90%;
+}
+
+header {
+    background: hsl(240,30%,50%);
+}
+main {}
+footer {}
+footer > ul > li > a[href]:link {}
+footer > ul > li > a[href]:visited {}
+footer > ul > li > a[href]:active {}
+footer > ul > li > a[href]:hover {}
+
+
+.card {
+    background: #fff;
+    color: #000;
+    box-shadow: var(--bs);
+}
+
+form {}
+
+h1 {
+    color: #fff;
+    font-size: 3em;
+    text-shadow: var(--ts);
+}
+
+h2 {
+    font-size: 2em;
+    text-shadow: var(--ts);
+}
+
+fieldset{
+    border: 1px groove #ccc;
+    padding: 3px;
+    margin: 3px;
+}
+
+fieldset > legend {
+    padding: 3px;
+    font-weight: bold;
+    text-shadow: var(--ts);
+
+}
