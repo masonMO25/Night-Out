@@ -27,7 +27,7 @@
                     <p>Use this section for both restaurants and events.</p>
                     <input type="text" id="city" name="city" placeholder="City" />
                     <!-- State code list borrowed from https://alvinalexander.com/blog/post/jsp/states-for-html-select-option-tag-drop-down-list/ -->
-                    <select name="state" size="1" title="Select a state">
+                    <select name="state" id="state" size="1" title="Select a state">
                         <option value="">State</option>
                         <option disabled>---</option>
                         <option value="AL">Alabama</option>
@@ -83,17 +83,17 @@
                         <option value="WY">Wyoming</option>
                       </select>
                     <span> or </span>
-                    <input type="text" name="zip" placeholder="Zip" size="5" maxlength="5" />
+                    <input type="text" id="zip" name="zip" placeholder="Zip" size="5" maxlength="5" />
                 </fieldset>
                 <fieldset>
                     <legend>Restaurant Search</legend>
-                    <input type="search" name="restaurant-search" placeholder="Restaurants" />
-                    <button>Search Restaurant</button>
+                    <input type="search" id="restaurant-query" name="restaurant-query" placeholder="Restaurants" />
+                    <button id="restaurant-search">Search Restaurant</button>
                 </fieldset>
                 <fieldset>
                     <legend>Event Search</legend>
-                    <input type="search" name="event-search" placeholder="Event" />
-                    <button>Search Events</button>
+                    <input type="search" id="event-query" name="event-query" placeholder="Event" />
+                    <button id="event-search">Search Events</button>
                 </fieldset>
             </form>
         </div>
