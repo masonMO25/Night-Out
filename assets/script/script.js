@@ -1,10 +1,10 @@
-var searchRestaurant=document.getElementById("restaurant-search") 
-var searchEvent=document.getElementById("event-search")
-
 // TODO: get event listeners hooked up
 // TODO: get input values after click
 // TODO: Fire off correct api repsonses depending on which button I clicked 
 // TODO: Display data
+
+var zipInputEl = document.querySelector("#zip");
+var zipcode = [];
 
 function getRestaurant() {
 const options = {
@@ -23,11 +23,18 @@ fetch('https://restaurants-near-me-usa.p.rapidapi.com/restaurants/location/zipco
  
 getRestaurant();
 
-searchRestaurant.addEventListener('click', function(ev) {
-    ev.preventDefault()
-    console.log("clicked on searchRestaurant");
-    
-});
+var formSumbitHandler = function(event){
+    event.preventDefault();
+    var zip = zipInputEl.value.trim();
+    if(zip){
+        getRestaurant(zip);
+        zipcode.unshift({zip});
+        zipInputEl.value = "";
+    } else{
+        alert("Please enter a zipcode");
+    };
+};
 
-
-
+var saveSearch = function(){
+    localStorage.setItem("zipcode", zipcode);
+};
