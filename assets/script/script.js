@@ -15,7 +15,7 @@ const options = {
 	}
 };
 
-fetch('https://restaurants-near-me-usa.p.rapidapi.com/restaurants/location/zipcode/63110/0', options)
+fetch('https://restaurants-near-me-usa.p.rapidapi.com/restaurants/location/zipcode/63125/0', options)
 	.then(response => response.json())
 	.then(response => console.log(response))
 	.catch(err => console.error(err));
