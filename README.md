@@ -6,7 +6,7 @@ Project 1
 
 ```
 AS A person looking for a night out
-I WANT to find resturants near me
+I WANT to find restaurants near me
 SO THAT I can plan on where I want to eat
 ```
 
@@ -15,7 +15,7 @@ SO THAT I can plan on where I want to eat
 ```
 GIVEN I am hungry
 WHEN I enter my zipcode
-THEN a list of nearby resturants appears on my screen.
+THEN a list of nearby restaurants appears on my screen.
 
 ```
 
