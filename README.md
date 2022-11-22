@@ -6,16 +6,16 @@ Project 1
 
 ```
 AS A person looking for a night out
-I WANT <what/>
-SO THAT <goal/>
+I WANT to find resturants near me
+SO THAT I can plan ahead what resturant I want to eat at.
 ```
 
 ## Acceptable Criteria
 
 ```
-GIVEN <conditon/>
-WHEN <action/>
-THEN <expectation/>
+GIVEN I am looking for a place to eat
+WHEN I can enter a ZIP code
+THEN a list of nearby resturants will appear on my screeen
 
 ```
 
