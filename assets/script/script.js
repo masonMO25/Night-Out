@@ -6,7 +6,7 @@ var searchEvent=document.getElementById("event-search")
 // TODO: Fire off correct api repsonses depending on which button I clicked 
 // TODO: Display data
 
-// Resturant API 
+function getResturant() {
 const options = {
 	method: 'GET',
 	headers: {
@@ -19,8 +19,10 @@ fetch('https://restaurants-near-me-usa.p.rapidapi.com/restaurants/location/zipco
 	.then(response => response.json())
 	.then(response => console.log(response))
 	.catch(err => console.error(err));
+};
+ 
+getResturant();
 
-    
 searchRestaurant.addEventListener('click', function(ev) {
     ev.preventDefault()
     console.log("clicked on searchRestaurant");
