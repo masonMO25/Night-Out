@@ -17,12 +17,9 @@
         <h1>Night Out</h1>
     </header>
     <main>
-        <!-- TODO: Fix this. It is covering other elements including the header and footer. -->
-        <div> class="video-container">
-            <iframe width="560" height="315" src="https://www.youtube.com/embed/bldusZF526w?controls=0&autoplay=1&mute=1&playsinline=1&loop=1&playlist=0fKgcd3j2ns"> title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-        </div>
+        <!-- Don't put the video here -->
+        <!-- Search engine -->
         <div class="card">
-            <!-- TODO: Let's put our search results on another page. -->
             <form method="get" action="./search.html">
                 <h2>Find Restaurants</h2>
                 <fieldset>
@@ -95,6 +92,12 @@
                     <button id="restaurant-search" name="restaurant-search" tabindex="0">Search Restaurant</button>
                 </fieldset>
             </form>
+        </div>
+        <!-- Results card -->
+        <div class="card">
+            <!-- Search Results go here! -->
+            <!-- Start simple with just text listing. Don't to the map stuff until we can get working search results. -->
+            <!-- TODO: Could we use a map? (Look into Leaflet or OpenStreetMap) -->
         </div>
     </main>
     <footer>
