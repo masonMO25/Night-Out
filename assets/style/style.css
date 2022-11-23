@@ -56,16 +56,12 @@ footer > ul > li > a[href]:link {}
 footer > ul > li > a[href]:visited {}
 footer > ul > li > a[href]:active {}
 footer > ul > li > a[href]:hover {}
-<<<<<<< HEAD
 
 #map{
     width: 45%;
     height: 50vh;
     margin-left: 58%;
 }
-=======
-*/
->>>>>>> dc6bcfc (We have a layout. Just need to get the Yelp stuff working.)
 
 .card {
     background: #fff;
