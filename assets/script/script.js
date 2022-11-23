@@ -6,16 +6,20 @@
 var zipInputEl = document.querySelector("#zip");
 var zipcode = [];
 
+document.getElementById("restaurant-search").onclick = function() {
+    console.log(document.getElementById("zip").value)
+}
 function getRestaurant() {
-const options = {
+   
+    const options = {
 	method: 'GET',
 	headers: {
-		'X-RapidAPI-Key': '1d4d2afd06msh8b774c1f4d35aa9p188f7djsn4373734bdfde',
+		'X-RapidAPI-Key': '1d4d2afd06msh8b774c1f4d35aa9p188f7djsn4373734bdfde', 
 		'X-RapidAPI-Host': 'restaurants-near-me-usa.p.rapidapi.com'
 	}
 };
 
-fetch('https://restaurants-near-me-usa.p.rapidapi.com/restaurants/location/zipcode/63125/0', options)
+fetch('https://restaurants-near-me-usa.p.rapidapi.com/restaurants/location/zipcode/63110/0', options)
 	.then(response => response.json())
 	.then(response => console.log(response))
 	.catch(err => console.error(err));
