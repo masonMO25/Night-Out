@@ -56,12 +56,7 @@ footer > ul > li > a[href]:link {}
 footer > ul > li > a[href]:visited {}
 footer > ul > li > a[href]:active {}
 footer > ul > li > a[href]:hover {}
-
-#map{
-    width: 45%;
-    height: 50vh;
-    margin-left: 58%;
-}
+*/
 
 .card {
     background: #fff;
