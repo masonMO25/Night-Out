@@ -80,6 +80,14 @@ fieldset > legend {
     top: 50%;
     transform: translate(-50%, -50%);
   }
+
+  #map{
+    width: 45%;
+    height: 50vh;
+    margin-left: 55%;
+}
+
+
   @media (min-aspect-ratio: 16/9) {
     .video-container iframe {
       height: 56.25vw;

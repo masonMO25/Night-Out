@@ -4,24 +4,18 @@
 // TODO: Display data
 
 
-const zipInputEl = document.querySelector("#zip");
-let zipcode = [];
+let mapOptions = {
+    center:[38.616207, -90.250379],
+    zoom:13
+}
 
+let map = new L.map('map' , mapOptions);
 
-function getRestaurant() {
-    const options = {
-        method: 'GET',
-        headers: {
-            'X-RapidAPI-Key': '1d4d2afd06msh8b774c1f4d35aa9p188f7djsn4373734bdfde',
-            'X-RapidAPI-Host': 'restaurants-near-me-usa.p.rapidapi.com'
-        }
-    };
+let layer = new L.TileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png');
+map.addLayer(layer);
 
-    fetch('https://restaurants-near-me-usa.p.rapidapi.com/restaurants/location/zipcode/63125/0', options)
-        .then(response => response.json())
-        .then(response => console.log(response))
-        .catch(err => console.error(err));
-};
+let marker = new L.Marker([38.616207, -90.250379]);
+marker.addTo(map);
 
 const saveSearch = function(){
     localStorage.setItem("zipcode", zipcode);
