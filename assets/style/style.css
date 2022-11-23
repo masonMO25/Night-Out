@@ -9,29 +9,63 @@
 body {
     /* TODO: What font? */
     background-color: hsl(240,30%,50%);
+    /* background-image: linear-gradient(180deg, rgba(2,0,36,1) 0%, rgba(9,9,121,1) 35%, rgba(64,0,255,1) 100%); */
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+    /* background-color:rgba(64,0,255,1); */
+    height: 100vh;    /* THIS! RIGHT HERE! THIS ! */
+}
+
+video {
+  object-fit: cover;
+  width: 100vw;
+  height: 100vw;
+  position: fixed;
+  top: 0;
+  left: 0;
 }
 
 header, main, footer {
     margin-left: auto;
     margin-right: auto;
-    width: 90%;
+    width: 90vh;
 }
 
 header {
-    background: hsl(240,30%,50%);
+    /* background: hsl(240,30%,50%); */ /* No point of this if body and footer have no color */
+    text-align: center;
 }
+
+/*
 main {}
-footer {}
+*/
+
+footer {
+  /* TODO: The footer should probably be fixed to the bottom. */
+  background-color: #ffffff;
+  border-radius: 3px;
+  margin-top: 5px !important;
+  padding: 3px;
+  box-shadow: var(--bs);
+}
+
+/*
 footer > ul > li > a[href]:link {}
 footer > ul > li > a[href]:visited {}
 footer > ul > li > a[href]:active {}
 footer > ul > li > a[href]:hover {}
+<<<<<<< HEAD
 
 #map{
     width: 45%;
     height: 50vh;
     margin-left: 58%;
 }
+=======
+*/
+>>>>>>> dc6bcfc (We have a layout. Just need to get the Yelp stuff working.)
 
 .card {
     background: #fff;
@@ -39,7 +73,6 @@ footer > ul > li > a[href]:hover {}
     box-shadow: var(--bs);
 }
 
-form {}
 
 h1 {
     color: #fff;
@@ -52,6 +85,8 @@ h2 {
     text-shadow: var(--ts);
 }
 
+/* form {} */
+
 fieldset{
     border: 1px groove #ccc;
     padding: 3px;
@@ -62,5 +97,24 @@ fieldset > legend {
     padding: 3px;
     font-weight: bold;
     text-shadow: var(--ts);
+}
 
+/* NOTE: to put the search results on the right side, use row-reverse for flex-direction */
+.side_by_side {
+  display: flex;
+  flex-direction: row;
+  padding: 3px; 
+  gap: 3px;   /* Surprisingly, this property does work in flexbox as well as grid.*/
+}
+
+/* Our results and map look better as a 40-60 split */
+#results {
+  width: 40vh;
+  aspect-ratio: 1;
+  overflow-y:scroll;  /* TODO: Change this back to auto later */
+}
+
+#map {
+  width: 60vh;
+  aspect-ratio: 1;
 }

@@ -1,2 +1,5 @@
 /* File: ./assets/css/maptest.js */
-#map { height: 360px; }
+#map { 
+    height: 720px; 
+    aspect-ratio: 1; /* square map! */
+}
