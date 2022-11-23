@@ -7,7 +7,7 @@
 const zipInputEl = document.querySelector("#zip");
 let zipcode = [];
 
-// TODO: Should this function be asynchronous? --J.C.
+
 function getRestaurant() {
     const options = {
         method: 'GET',
@@ -22,8 +22,6 @@ function getRestaurant() {
         .then(response => console.log(response))
         .catch(err => console.error(err));
 };
- 
-getRestaurant();    // TODO: Why do we need to run this the first time?
 
 const saveSearch = function(){
     localStorage.setItem("zipcode", zipcode);
@@ -32,7 +30,7 @@ const saveSearch = function(){
 const formSumbitHandler = function(event){
     event.preventDefault();
     let zip = zipInputEl.value.trim();
-    if(/^\d{5}$/.test(zip)){      // Using a regular expression to validate tha our zipcode is a zip code
+    if(/^\d{5}$/.test(zip)){      // Using a regular expression to validate that our zipcode is a zip code
         // TODO: Should we store our zipcode value in localStorage?
         getRestaurant(zip);
         zipcode.unshift({zip});
