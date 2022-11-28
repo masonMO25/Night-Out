@@ -13,6 +13,11 @@
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css" integrity="sha256-kLaT2GOSpHechhsozzB+flnD+zUyjE2LlfWPgU04xyI=" crossorigin="" />
     <!-- Leaflet JS-->
     <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js" integrity="sha256-WBkoXOwTeyKclOHuWtc+i2uENFpDZ9YPdf5Hf+D7ewM=" crossorigin=""></script>
+    <!-- One more library to keep our API key safe -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js" integrity="sha512-E8QSvWZ0eCLGk4km3hxSsNmGWbLtSCSUcewDQPQWZF6pEU8GlT8a5fF32wOl1i8ftdMhssTrF/OhyGWwonTcXA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/sha512.min.js" integrity="sha512-iVz09aQOY2fbdnKQh7kJ0Q9h2ZVjMsql2IT6mI+qziZdJ7bT/guIovUCCE5bx1qzc4mnnUKyGkArkkGJ1zap0g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/enc-base64.min.js" integrity="sha512-IKpu1GFk/bQ+2fOc4sXuA6lm7Rct4P7611iDBxY9LReOZ2PpwoDWWqj6GSYejUce1FLxo/d4lxAnKqGWJuBw7g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/aes.min.js" integrity="sha512-4b1zfeOuJCy8B/suCMGNcEkMcQkQ+/jQ6HlJIaYVGvg2ZydPvdp7GY0CuRVbNpSxNVFqwTAmls2ftKSkDI9vtA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <!-- Defer just tells the script to run after the page loads -->
     <script defer src="assets/script/script.js"></script>
 </head>
@@ -102,7 +107,9 @@
                             <option value="WY">Wyoming</option>
                         </select>
                         <span> or </span>
-                        <input type="text" id="zip" name="zip" placeholder="Zip" size="5" maxlength="5" tabindex="0" />
+                        <!-- NOTE: Needed to rename this to at least get the location working -->
+                        <input type="text" id="zip" name="location" placeholder="Zip" size="5" maxlength="5" tabindex="0" />
+                        <!-- TODO: Need a radius -->
                         <!--
                         <span> or </span>
                         <button id="geolocate" onclick="alert('Sorry, this does not work yet. Check back later.')">Use my location</button>
@@ -116,7 +123,8 @@
                     <legend>Restaurant Search</legend>
                     <!-- This also needs a nudge to the right -->
                     <div class="field">
-                        <input type="search" id="restaurant-query" name="restaurant-query" placeholder="Restaurants" tabindex="0" />
+                        <!-- the name attribute had to be changed here for yelp -->
+                        <input type="search" id="restaurant-query" name="term" placeholder="Restaurants" tabindex="0" />
                         <button id="restaurant-search" name="restaurant-search" tabindex="0">Search Restaurant</button>
                         <div class="hero is-danger">
                             <p id="error2"></p>
@@ -130,51 +138,6 @@
                 <h2>Results Demo</h2>
                 <!-- Generate results here -->
                 <hr>
-                <div class="result">
-                    <h3>Alice's Restaurant</h3>
-                    <p>Located in an old church in Stockbridge</p>
-                    <blockquote>
-                        <p>Arlo G.</p>
-                        <p>"I know Alice! There's a song about Alice."</p>
-                    </blockquote>
-                </div>
-                <hr>
-                <div class="result">
-                    <h3>Mos Eisley Cantina</h3>
-                    <p>A hive of villiany and scum. Live band. Droids unwelcome.</p>
-                    <blockquote>
-                        <p>Greedo</p>
-                        <p>"I was shot there. But the bar food was OK, I guess. 2 1/2 Stars"</p>
-                    </blockquote>
-                </div>
-                <hr>
-                <div class="result">
-                    <h3>Moe's Tavern</h3>
-                    <p>Standard American Pub.</p>
-                    <blockquote>
-                        <p>Barney G.</p>
-                        <p>"I practically live here! *BURP!*"</p>
-                    </blockquote>
-                </div>
-                <hr>
-                <div class="result">
-                    <h3>The World's End</h3>
-                    <p>British Pub.</p>
-                    <blockquote>
-                        <p>Gary K.</p>
-                        <p>"IDK what happened. This place used to be so cool, now it just seems like everyone's been replaced by robots."</p>    
-                    </blockquote>
-                </div>
-                <hr>
-                <div class="result">
-                    <h3>The Winchester</h3>
-                    <p>British Pub.</p>
-                    <p>COVID Protocol: Masks required if unvaccinated</p>
-                    <blockquote>
-                        <p>Shaun</p>
-                        <p>"Would be a great place to hide from zombies with those big heavy doors."</p>
-                    </blockquote>
-                </div>
             </div>
             <div id="map"></div> 
         </div>

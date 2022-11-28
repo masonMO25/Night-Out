@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./assets/style/encrypt.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js" integrity="sha512-E8QSvWZ0eCLGk4km3hxSsNmGWbLtSCSUcewDQPQWZF6pEU8GlT8a5fF32wOl1i8ftdMhssTrF/OhyGWwonTcXA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/sha512.min.js" integrity="sha512-iVz09aQOY2fbdnKQh7kJ0Q9h2ZVjMsql2IT6mI+qziZdJ7bT/guIovUCCE5bx1qzc4mnnUKyGkArkkGJ1zap0g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/enc-base64.min.js" integrity="sha512-IKpu1GFk/bQ+2fOc4sXuA6lm7Rct4P7611iDBxY9LReOZ2PpwoDWWqj6GSYejUce1FLxo/d4lxAnKqGWJuBw7g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/aes.min.js" integrity="sha512-4b1zfeOuJCy8B/suCMGNcEkMcQkQ+/jQ6HlJIaYVGvg2ZydPvdp7GY0CuRVbNpSxNVFqwTAmls2ftKSkDI9vtA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script defer src="./assets/script/encryptkeeper.js"></script>
+</head>
+<body>
+    <p>We need a way to encrypt our Yelp API key to keep the baddies out.</p>
+    <blockquote>
+        <p><strong>Note:</strong> You might be asked for permission to use the paste button. Approve of it. It's OK.</p>
+    </blockquote>
+    <button id="paste" title="Click here to paste a string from the clipboard">Paste</button>
+    <form>
+        <fieldset>
+            <legend>String to Encrypt</legend>
+            <textarea id="input" rows="5" cols="50"></textarea>
+        </fieldset>
+        <button id="crunch" title="Encrypt our secret message!">CRUNCH!</button>    
+    </form>
+    <fieldset>
+        <legend>Secret Message</legend>
+        <pre id="output"></pre>
+    </fieldset>
+    <button id="copy" title="Click here to copy the above hash to the clipboard">Copy</button>
+    <div id="message"></div>
+    <hr>
+    <a href="./decrypt.html">Decrypt a message!</a>
+</body>
+</html>

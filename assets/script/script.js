@@ -36,26 +36,44 @@ const formSumbitHandler = function(event){
     event.preventDefault();
     let city = cityInput.value.trim();
     let state = stateInput.value;   // This doesn't need a trim
-
     let zip = zipInput.value.trim();
-    if(/^\d{5}$/.test(zip)){      // Using a regular expression to validate that our zipcode is a zip code
-        // TODO: See if we can store city and state in local storage as an alternate to local storage. Yelp API could help with that.
-        getRestaurant(zip);
-        //localStorage.setItem("zip",zip);    // Zip code is stored in local storage! Good Work! --JC
-        saveSearch(zip);                      // What good is having the function if we don't use it?! --JC
-        /*
-        zipcode.unshift({zip});     // TODO: What was this for?
-        zipInputEl.value = "";
-        */
+
+    let location="", zipCode="";
+    if(city.length > 0 && state !== ""){
+        location = `${city}, ${state}`;     // Do a location search
+    }
+    if(zip !== "" && /^\d{5}$/.test(zip)){
+        zipCode = zip;                      // Do a zip code search
+    }
+    if(location !== "" || zipCode !== ""){
+        saveSearch("location",[location,zipCode].join(" ").trim());
     }else{
-        alert("Please enter a zipcode");    // TODO: display some text near the submission form instead of using this. I'll look into it later.
-    };
+        let error1 = document.querySelector("#error1")
+        error.innerText = "Please enter a location";
+        setTimeout(()=>{
+            error1.innerText = "";
+        },5000);    // Clear the error after about five seconds
+    }
 };
 
 const restaurantQuery = document.querySelector("#restaurant-query");    // text field
 const restaurantSearch = document.querySelector("#restaurant-search"); // button
 
 restaurantSearch.disabled = true;   // If our zipInputEl and restaurantQuery are empty, prevent the restaurantSearch button from being active
+
+/* Borrowed alot of this from https://stackoverflow.com/questions/72570359/cryptojs-javascript-aes-128-ecb-encrypt-decrypt
+ * It needs tougher encryption
+ */
+function decrypt(input,key){
+    key = CryptoJS.enc.Utf8.parse(key);
+    let decrypted =  CryptoJS.AES.decrypt(
+        {ciphertext: CryptoJS.enc.Hex.parse(input)}, 
+        key, 
+        {mode: CryptoJS.mode.ECB, padding: CryptoJS.pad.ZeroPadding });
+
+    decrypted = decrypted.toString(CryptoJS.enc.Utf8);
+    return decrypted;
+}
 
 /**
  * A crash course in boolean
@@ -81,11 +99,13 @@ cityInput.addEventListener("keyup", (ev) => {
 stateInput.addEventListener()
 */
 
+
 zipInput.addEventListener("keyup", (ev) => {
     ev.preventDefault();    // TODO: Remove this later when we use our form
     restaurantSearch.disabled = (ev.target.value.length === 0 || restaurantQuery.value.length === 0);
     if(!restaurantSearch.disabled && ev.keyCode === 13){
         // TODO: Run our search
+        findTheRestaurants();
 
     }
 });
@@ -95,6 +115,7 @@ restaurantQuery.addEventListener("keyup", (ev) => {
     restaurantSearch.disabled = (zipInput.value.length === 0 || ev.target.value.length === 0);
     if(!restaurantSearch.disabled && ev.keyCode === 13){
         // TODO: Run our search
+        findTheRestaurants();
     }
 });
 
@@ -117,12 +138,6 @@ function findTheRestaurants(){
     // TODO: Purge those searches
     console.log(JSON.stringify([...data.entries()]));
 
-    // We need ot use the cors-anywhere Heroku App to bypass the Yelp API
-
-    let queryURL = "https://cors-anywhere.herokuapp.com/https://api.yelp.com/v3/businesses/search";
-
-    // TODO: Add yelp key to our data entries
-
     // What's going on here?
     // We are converting or data.entries() to an array
     // The array is filtered to remove any empty values
@@ -134,11 +149,65 @@ function findTheRestaurants(){
                         .join("&");
     console.log(urlParams);
 
+
+    // We need ot use the cors-anywhere Heroku App to bypass the Yelp API
+
+    let queryURL = "https://cors-anywhere.herokuapp.com/https://api.yelp.com/v3/businesses/search";
+
+    // Safely encrypted
+    let yelp = [
+        "9&m_Umgc=qYDqnGe",
+        "85a178357012d575",
+        "f706bd7174c112cb",
+        "6428057d9307af6a",
+        "55669123cf1f9822",
+        "78343c1dfa132987",
+        "ff59fc1fdb62831d",
+        "b7df45d22c63d5e2",
+        "09fd9b952d95be6a",
+        "98e726d964f7af4f",
+        "9859a24d809f5eab",
+        "c72f8055fbeeecdf",
+        "744cbcbe42844e80",
+        "42eba6b0966a87de",
+        "31f1eb067334bbd9",
+        "2a5469037b78d052",
+        "032bf2d44e031566"
+    ];
+
     /*
-    let options = (
-        method: 'get',
-    );
+    // TODO: Wanted to do this, but maybe later.
+    let hex = /[0-9a-fA-F]+/;
+    let pinky = data.filter((x) => !(hex.test(x));
+    let brain = data.filter((x) => (hex.test(x));
     */
+
+    let pinky = yelp.shift();       // "Gee Brain, what do you want to do tonight?"
+    let brain = yelp.join("");      // "The same thing we do every night, Pinky. Try to take over the world!"
+
+    let req = queryURL + "?" + urlParams;
+
+    fetch(req,{
+        "method"  : "get",
+        "mode" : "cors",            // Seems pretty obvious we should use this
+        "headers" : {
+            "accept" : "application/json",
+            "x-requested-with" : "xmlhttprequest",
+            "Access-Control-Allow-Origin" : "*",
+            "Authorization" : `Bearer ${decrypt(brain,pinky)}`
+        },
+        "data" : {}
+    }).then(res => res.text()).then((text) => {
+        // Where the magic happens!
+        const results = document.querySelector("#results");
+        results.innerText = JSON.stringify(text,null,2);
+        // WE OWE YOU MAP DATA!
+
+    }).catch((err) => {
+        // Where the magic SHOULDN'T happen
+        console.error("Error: ", error);
+    });
+
 }
 
 restaurantSearch.addEventListener("click", (ev) => {

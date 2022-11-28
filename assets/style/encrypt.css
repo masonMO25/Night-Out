@@ -1,0 +1,31 @@
+body {
+    font-family: sans-serif;
+}
+
+textarea#input {
+    font-family: monospace;
+}
+
+blockquote {
+    background-color: #cccc;
+    height: 3em;
+    padding: 0.25em;
+    box-shadow: 3px 3px 5px #333;
+    border-left: 3px solid #33f;
+}
+
+button#copy,
+button#paste,
+button#crunch {
+    font-size: 18pt
+}
+
+pre#output {
+    font-family: monospace;
+    border: 1px solid #000;
+    min-height: 6em;
+}
+
+#message {
+    min-height: 1em;
+}
