@@ -21,6 +21,7 @@
     <!-- TODO: Take a look at this later. -->
     <!-- turns out we don't need to put the video in a div. -->
     <!-- TODO: get a poster (cover image) for our video if it doesn't work -->
+    <!-- UPDATE: I was told there was a poster. Did someone forget to merge a branch? -->
     <!-- See https://css-tricks.com/full-page-background-video-styles/ -->
     
     <video poster="" id="bgvid" playsinline autoplay muted loop>
@@ -33,8 +34,8 @@
     </header>
     <main class="container">
         <div class="card">
-            <!-- TODO: Let's put our search results on another page. -->
-            <form method="get" action="./search.html">
+            <!-- I changed my mind. We can keep it all on the same page. -->
+            <form id="findRestaurants" method="get">
                 <h2>Find Restaurants</h2>
                 <fieldset>
                     <legend>Location</legend>
@@ -102,6 +103,13 @@
                         </select>
                         <span> or </span>
                         <input type="text" id="zip" name="zip" placeholder="Zip" size="5" maxlength="5" tabindex="0" />
+                        <!--
+                        <span> or </span>
+                        <button id="geolocate" onclick="alert('Sorry, this does not work yet. Check back later.')">Use my location</button>
+                        -->
+                        <div class="hero is-danger">
+                            <p id="error1"></p>
+                        </div><!-- This is blank. If there are errors, it will appear with text. -->
                     </div>
                 </fieldset>
                 <fieldset>
@@ -110,6 +118,9 @@
                     <div class="field">
                         <input type="search" id="restaurant-query" name="restaurant-query" placeholder="Restaurants" tabindex="0" />
                         <button id="restaurant-search" name="restaurant-search" tabindex="0">Search Restaurant</button>
+                        <div class="hero is-danger">
+                            <p id="error2"></p>
+                        </div><!-- This is blank. If there are errors, it will appear with text. -->
                     </div>
                 </fieldset>
             </form>
