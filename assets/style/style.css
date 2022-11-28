@@ -4,19 +4,50 @@
     --bs: 2px 2px 2px rgba(0,0,0,70%);
     /* Text Shadow */
     --ts: 2px 2px 2px rgba(0,0,0,70%);
+    /* border radius */
+    --br: 10px;
 }
+
+/*
+html,body {
+  height: 100vh;
+}
+*/
 
 body {
     /* TODO: What font? */
-    background-color: hsl(240,30%,50%);
+    background-color: hsl(240,30%,50%);  /* TODO: Pick a different color. Earthtone, preferably. */
     /* background-image: linear-gradient(180deg, rgba(2,0,36,1) 0%, rgba(9,9,121,1) 35%, rgba(64,0,255,1) 100%); */
     background-position: center center;
     background-repeat: no-repeat;
     background-attachment: fixed;
     background-size: cover;
     /* background-color:rgba(64,0,255,1); */
+    display: flex;
+    flex-direction: column;
+    flex-flow: wrap;
+    /* flex-flow: nowrap; */
+    /* justify-content: center; */
+    align-content: center;
     height: 100vh;    /* THIS! RIGHT HERE! THIS ! */
+    margin: 0 auto;
 }
+
+/* Changed the color scheme. "I liek goooooald." --Goldmember, Austin Powers 3 */
+a[href]:link {
+  color: #eebb00;
+}
+a[href]:visited {
+  color: #eebb00;
+
+}
+a[href]:active {
+  color: #eebb00;
+}
+a[href]:hover {
+  color: #ffcc00;
+}
+
 
 video {
   object-fit: cover;
@@ -32,27 +63,45 @@ header, main, footer {
   box-shadow: var(--bs);
   margin-left: auto;
   margin-right: auto;
-  width: 90vh;
+  width: 90vw !important; /* Made it important. Stop breaking stuff, Bulma! */
 }
 
 header {
   /* background: hsl(240,30%,50%); */ /* No point of this if body and footer have no color */
+  display: block;
   text-align: center;
+  border-top-left-radius: var(--br);
+  border-top-right-radius: var(--br);
 }
 
-/*
-main {}
-*/
+
+main {
+  display: block;
+}
+
 
 footer {
   /* TODO: The footer should probably be fixed to the bottom. */
+  display: block;
   border-radius: 3px;
   margin-top: 5px !important;
   padding: 3px;
-  box-shadow: var(--bs);
+  border-bottom-left-radius: var(--br);
+  border-bottom-right-radius: var(--br);
 }
 
-/* Changed the color scheme. "I liek goooooald." --Goldmember, Austin Powers 3 */
+/*
+footer > ul {
+  display: block;
+}
+
+footer > ul > li {
+  display: block;
+}
+
+*/
+
+/* Keeping these in case we need them */
 footer > ul > li > a[href]:link {
   color: #eebb00;
 }
@@ -71,9 +120,9 @@ footer > ul > li > a[href]:hover {
 .card {
     /* background: #fff; */
     /* color: #000; */
-    background: transparent;
-    color: #efefef;
-    box-shadow: var(--bs);
+    background-color: transparent;
+    color: #efefef;    
+    /* box-shadow: var(--bs); */ /* The cards are both in the main section, so no shadow here */
 }
 
 
@@ -91,15 +140,106 @@ h2 {
 /* form {} */
 
 fieldset{
-    border: 1px groove #ccc;
+    border: 1px groove rgba(51,51,51,70%);
+    border-radius: 5px;
     padding: 3px;
     margin: 3px;
-}
+    padding-bottom: 6px;
+    box-shadow: var(--bs) inset; /* Give our fieldsets a sense of depth with an inset shadow. */
+  }
 
 fieldset > legend {
+    margin-left: 1em;   /* The fieldset legend is actually controlled by the margin-left attribute */
     padding: 3px;
     font-weight: bold;
     text-shadow: var(--ts);
+}
+
+/* Use this to put each set of fields that are in a row in a container. We need to nudge them away from the edges of the fieldset box. */
+.field {
+  margin-left: 3px;
+  margin-right: 3px;
+}
+
+input[type="text"],
+input[type="search"] {
+  background-color: rgba(64,64,64,70%);   /* TODO: is this too dark? */
+  color: #ffffff;
+  font-size: 14pt;
+  border-radius: 5px; 
+}
+
+input[type="text"]::placeholder,
+input[type="search"]::placeholder {
+  color: rgba(204,204,204,70%);   /* TODO: is this too dark? */
+}
+
+/* Change our highlight color
+ * https://css-tricks.com/overriding-the-default-text-selection-color-with-css/
+ */
+input[type="text"]::selection,
+input[type="search"]::selection {
+  background-color: #ffcc00;
+  color: #000;
+}
+
+
+/* TODO: highlight color */
+
+input[type="text"]:focus,
+input[type="search"]:focus { 
+  border: 1px inset #ffcc00;
+  outline: 1px inset #ffcc00; /* Get rid of that ugly white outline */
+  box-shadow: 0px 0px 3px 6px rgba(255,204,0,70%); /* #ffcc00; */
+}
+
+/* TODO: selected option color */
+
+select {
+  background-color: rgba(64,64,64,70%);   /* TODO: is this too dark? */
+  color: #ffffff;
+  font-size: 14pt;
+  border-radius: 5px; 
+
+}
+
+select:focus {
+  border: 1px inset #ffcc00;
+  outline: 1px inset #ffcc00; /* Get rid of that ugly white outline */
+  box-shadow: 0px 0px 3px 6px rgba(255,204,0,70%); /* #ffcc00; */
+}
+
+/* This thing below, won't work. You need to use some techinque to convert `select > option` to `ul > li`. Maybe in the next project. */
+/*
+select > option {
+  background-color: #ffcc00;
+  color: #000;
+}
+*/
+
+button {
+  cursor: pointer; /* The hand looks better */
+  font-size: 14pt;
+  border-radius: 5px; 
+  background-color: rgba(64,64,64,70%);
+  color: #ffffff;
+}
+
+button:disabled {
+  box-shadow: none;
+  background-color: rgba(51,51,51,30%);
+  color: rgba(204,204,204,70%);   /* TODO: is this too dark? */
+}
+button:disabled:hover {   /* no box shadow if disabled */
+  box-shadow: none;
+  cursor: not-allowed;
+  color: rgba(204,204,204,70%);   /* TODO: is this too dark? */
+}
+
+button:focus,
+button:hover {
+  box-shadow: 0px 0px 3px 6px rgba(255,204,0,70%); /* #ffcc00; */
+  color: rgba(255,204,0,1);
 }
 
 /* NOTE: to put the search results on the right side, use row-reverse for flex-direction */
@@ -108,19 +248,34 @@ fieldset > legend {
   flex-direction: row;
   padding: 3px; 
   gap: 3px;   /* Surprisingly, this property does work in flexbox as well as grid.*/
+  max-height: 60vh; /* We need limit one of our cards' height so that everything fits otherwise we won't see the header or footer. Why not this one. The map should resize anyway. */
 }
 
 /* Our results and map look better as a 40-60 split */
 #results {
   width: 40vw; /* 40% of the screen is results */
-  height: 60vh;
   /* aspect-ratio: 1; */
   overflow-y:scroll;  /* TODO: Change this back to auto later */
 }
 
 #map {
   width: 60vw; /* The other 60% is map */
-  height: 60vh;
   /*aspect-ratio: 1; */  /* Yeah, this was not a good idea. */
   
 }
+
+/* Make our horizontal rules in #result look fancy */
+hr {
+  border: 1px groove rgba(255,255,255,70%);
+  box-shadow: var(--bs);
+  margin-left: auto;
+  margin-right: auto;
+  width: 100px;
+}
+
+/* This will NOT override .container in bulma. */
+/*
+.container {
+  display: block;
+}
+*/
