@@ -1,9 +1,9 @@
 /* File: assets/styles/styles.css */
 :root {
     /* Box Shadow */
-    --bs: 2px 2px 2px #ccc;
+    --bs: 2px 2px 2px rgba(0,0,0,70%);
     /* Text Shadow */
-    --ts: 2px 2px 2px #ccc;
+    --ts: 2px 2px 2px rgba(0,0,0,70%);
 }
 
 body {
@@ -28,14 +28,16 @@ video {
 }
 
 header, main, footer {
-    margin-left: auto;
-    margin-right: auto;
-    width: 90vh;
+  background-color: rgba(51,51,51,70%); /* Using an RGBA color to give it a transparent color */
+  box-shadow: var(--bs);
+  margin-left: auto;
+  margin-right: auto;
+  width: 90vh;
 }
 
 header {
-    /* background: hsl(240,30%,50%); */ /* No point of this if body and footer have no color */
-    text-align: center;
+  /* background: hsl(240,30%,50%); */ /* No point of this if body and footer have no color */
+  text-align: center;
 }
 
 /*
@@ -44,23 +46,33 @@ main {}
 
 footer {
   /* TODO: The footer should probably be fixed to the bottom. */
-  background-color: #ffffff;
   border-radius: 3px;
   margin-top: 5px !important;
   padding: 3px;
   box-shadow: var(--bs);
 }
 
-/*
-footer > ul > li > a[href]:link {}
-footer > ul > li > a[href]:visited {}
-footer > ul > li > a[href]:active {}
-footer > ul > li > a[href]:hover {}
-*/
+/* Changed the color scheme. "I liek goooooald." --Goldmember, Austin Powers 3 */
+footer > ul > li > a[href]:link {
+  color: #eebb00;
+}
+footer > ul > li > a[href]:visited {
+  color: #eebb00;
+
+}
+footer > ul > li > a[href]:active {
+  color: #eebb00;
+}
+footer > ul > li > a[href]:hover {
+  color: #ffcc00;
+}
+
 
 .card {
-    background: #fff;
-    color: #000;
+    /* background: #fff; */
+    /* color: #000; */
+    background: transparent;
+    color: #efefef;
     box-shadow: var(--bs);
 }
 
@@ -100,12 +112,15 @@ fieldset > legend {
 
 /* Our results and map look better as a 40-60 split */
 #results {
-  width: 40vh;
-  aspect-ratio: 1;
+  width: 40vw; /* 40% of the screen is results */
+  height: 60vh;
+  /* aspect-ratio: 1; */
   overflow-y:scroll;  /* TODO: Change this back to auto later */
 }
 
 #map {
-  width: 60vh;
-  aspect-ratio: 1;
+  width: 60vw; /* The other 60% is map */
+  height: 60vh;
+  /*aspect-ratio: 1; */  /* Yeah, this was not a good idea. */
+  
 }
