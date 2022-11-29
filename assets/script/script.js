@@ -20,24 +20,8 @@ map.addLayer(layer);
 let marker = new L.Marker(mapOptions.center);
 marker.addTo(map);
 
-L.control.locate().addTo(map);
+// L.control.locate().addTo(map);   //   Sorry, this doesn't work
 
-/*
-let mapOptions = {
-    center:[38.616207, -90.250379],
-    zoom:13
-}
-
-let map = new L.map('map' , mapOptions);
-
-// TODO: Fill in this later.
-let layer = new L.TileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png');
-map.addLayer(layer);
-
-//let marker = new L.Marker([38.616207, -90.250379]);
-let marker = new L.Marker(mapOptions.center);
-marker.addTo(map);
-*/
 
 const cityInput = document.querySelector("#city");
 const stateInput = document.querySelector("#state");
@@ -230,10 +214,8 @@ function findTheRestaurants(){
         }
     }).then(res => res.text()).then((text) => {
         // Where the magic happens!
-        const results = document.querySelector("#results");
-        //const mapPanel = document.querySelector("#map");
+        const results = document.querySelector("#results"); // TODO: Move this to a global scope
 
-        // TODO: Why is this not working?
         // Clear our results after every search
         if(results.hasChildNodes){
             while(results.lastElementChild){
@@ -253,16 +235,7 @@ function findTheRestaurants(){
             "center" : data.region.center,
             "zoom" : 13
         }
-
-        //map = new L.map('map' , mapOptions);
-
-
-        /*
-        const whereami = data.region.center;
-        mapOptions.center = whereami;
-        delete map;
-        map = new L.map('map' , mapOptions);
-        */
+        map.panTo(data.region.center);
 
         let data_results = data.businesses.map(business => {
             const result = document.createElement("div");
@@ -271,11 +244,6 @@ function findTheRestaurants(){
             biz_name.innerHTML = `<strong>${business.name}</strong>`;
             const biz_rate = document.createElement("p");
             biz_rate.innerHTML = `${business.rating} out of 5 stars`;
-            // TODO: WE OWE YOU MAP DATA!
-            /**
-             * coordinates.latitude,
-             * coordinates.longitude
-             */
             const biz_address = document.createElement("p");
             biz_address.innerHTML = business.location.display_address.join("<br>");
             const biz_phone  = document.createElement("p");     // TODO: Try input tel later
@@ -311,7 +279,12 @@ function findTheRestaurants(){
             return result;
         });
 
-        //console.log(data_results.length);
+        // What does this line to?
+        // Becauyse data_results is a NodeList, it needst to be converted into an Array with Array.from
+        // .reduce is used to create a new array where a horizontal rule (hr) is between each item.
+        // .slice removes the last element in the array that is a null instead of a horizontal rule element
+        // .flat is added to flatten the array
+        // On the next line, we can use a spread operator to append each element to the results element. 
         data_results = Array.from(data_results).reduce((arr, item) => arr.concat(item, document.createElement("hr")), []).slice(0,-1).flat();
         results.append(...data_results);
 
