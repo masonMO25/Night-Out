@@ -147,7 +147,7 @@ const findRestaurants = document.querySelector("#findRestaurants");     // get o
 
 function findTheRestaurants(){
     const data = new FormData(findRestaurants);     // Get our data from the form, the easy way
-    localStorage.setItem("lastSearch",data);      // WE should use this instead.
+    localStorage.setItem("lastSearch", JSON.stringify([...data.entries()]));      // WE should use this instead.
     // TODO: later get this search with lastSearch
     // TODO: Queue a list of the last 10 searches
     // TODO: Purge those searches
