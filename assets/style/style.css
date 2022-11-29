@@ -136,6 +136,10 @@ h2 {
     font-size: 2em;
     text-shadow: var(--ts);
 }
+h3 {
+  font-size: 1.5em;
+  text-shadow: var(--ts);
+}
 
 /* form {} */
 
@@ -157,8 +161,8 @@ fieldset > legend {
 
 /* Use this to put each set of fields that are in a row in a container. We need to nudge them away from the edges of the fieldset box. */
 .field {
-  margin-left: 3px;
-  margin-right: 3px;
+  margin-left: 6px;
+  margin-right: 6px;
 }
 
 input[type="text"],
@@ -167,6 +171,7 @@ input[type="search"] {
   color: #ffffff;
   font-size: 14pt;
   border-radius: 5px; 
+  margin: 3px;
 }
 
 input[type="text"]::placeholder,
@@ -200,7 +205,7 @@ select {
   color: #ffffff;
   font-size: 14pt;
   border-radius: 5px; 
-
+  margin: 3px;
 }
 
 select:focus {
@@ -283,4 +288,9 @@ hr {
 
 strong {
   color: #fff !important;
+}
+
+/* A request for more padding was made. This is just one of the things I changed. There's a couple of other things above. */
+form > h2 {
+  margin-left: 6px;
 }

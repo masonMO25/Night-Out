@@ -102,6 +102,7 @@ function decrypt(input,key){
  * 
  */
 
+// TODO: Fix this!
 cityInput.addEventListener("keyup", (ev) => {
     ev.preventDefault();
 });
@@ -220,10 +221,10 @@ function findTheRestaurants(){
         }
 
         const search_header = document.createElement("h3");
-        const term = localStorage.getItem("term");
-        const location = localStorage.getItem("location");
-        search_header.innerHTML = `Results for ${term} in ${location}`;
-        results.append(search_header);
+        //const term = localStorage.getItem("term");
+        //const location = localStorage.getItem("location");
+        search_header.innerHTML = `Results for <strong>${search_data.term}</strong> in <strong>${search_data.location}</strong>:`;
+        results.append(search_header,document.createElement("br"));
         //results.innerText = JSON.stringify(text,null,2);  // output some JSON Data
         const data = JSON.parse(text);
         let data_results = data.businesses.map(business => {
@@ -233,6 +234,7 @@ function findTheRestaurants(){
             biz_name.innerHTML = `<strong>${business.name}</strong>`;
             const biz_rate = document.createElement("p");
             biz_rate.innerHTML = `${business.rating} out of 5 stars`;
+            // TODO: WE OWE YOU MAP DATA!
             /**
              * coordinates.latitude,
              * coordinates.longitude
@@ -257,14 +259,17 @@ function findTheRestaurants(){
             //results.append(result);  
             return result;
         });
-        const hr = document.createElement("hr");
-        data_results = interleave(data_results,hr);
-        //data_results = data_results.join("<hr>");
-        //console.log(...data_results);
-        //results.append(result);
-        results.append(...data_results);
 
-        // TODO: WE OWE YOU MAP DATA!
+        //console.log(data_results.length);
+        data_results = Array.from(data_results).reduce((arr, item, idx) => arr.concat(item, document.createElement("hr")), []).slice(0,-1).flat();
+        //console.log(data_results);        
+        results.append(...data_results);
+        /*
+        for(let i = 0; i < data_results.length; i++){
+            results.appendChild(data_results[i]);
+        }
+        */
+
 
     }).catch((err) => {
         // Where the magic SHOULDN'T happen
