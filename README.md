@@ -5,16 +5,16 @@ Project 1
 ## User Story
 
 ```
-AS A person looking for a night out
+AS A person looking for a bite to eat
 I WANT to find restaurants near me
-SO THAT I can plan on where I want to eat
+SO THAT I can decide where I want to eat
 ```
 
 ## Acceptable Criteria
 
 ```
 GIVEN I am hungry
-WHEN I enter my zipcode
+WHEN I enter my location
 THEN a list of nearby restaurants appears on my screen.
 
 ```
@@ -28,10 +28,11 @@ THEN a list of nearby restaurants appears on my screen.
 
 
 ## APIs Used
-* [Restaurants near me USA](https://rapidapi.com/makingdatameaningful/api/restaurants-near-me-usa/)
-* [Concerts - ARtist Events Tracker](https://rapidapi.com/s.mahmoud97/api/concerts-artists-events-tracker/)
+* [OpenStreetMap API](http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png)
+* [Yelp Fusion API](https://www.yelp.com/developers/documentation/v3/get_started)
 
 
 ## Frameworks
 
 * CSS - [Bulma](https://bulma.io/)
+![Alt text](assets/image/Night%20Out.jpg)
