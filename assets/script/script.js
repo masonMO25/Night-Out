@@ -20,7 +20,8 @@ map.addLayer(layer);
 let marker = new L.Marker(mapOptions.center);
 marker.addTo(map);
 
-// L.control.locate().addTo(map);   //   Sorry, this doesn't work
+// Earlier I had stated that the locate wasn't working. It probably would have been helpful to state that Leaflet Locate (https://github.com/domoritz/leaflet-locatecontrol) was used.
+L.control.locate().addTo(map);
 
 
 const cityInput = document.querySelector("#city");
@@ -235,7 +236,8 @@ function findTheRestaurants(){
             "center" : data.region.center,
             "zoom" : 13
         }
-        map.panTo(data.region.center);
+        //map.panTo(data.region.center);
+        map.panTo(new L.LatLng(data.region.center.latitude,data.region.center.longitude));
 
         let data_results = data.businesses.map(business => {
             const result = document.createElement("div");
@@ -266,7 +268,7 @@ function findTheRestaurants(){
             let biz_point = [business.coordinates.latitude,business.coordinates.longitude];
             let biz_marker = new L.Marker(biz_point);
             biz_marker.addTo(map);
-
+            // let biz_markie = "OH SNAP!";
 
 
             //let popup = L.popup().setLatLng(biz_point).setContent(result);

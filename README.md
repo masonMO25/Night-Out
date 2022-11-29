@@ -1,5 +1,7 @@
 #  Night Out 🍝🍹🎞️
 
+[![Alt text](assets/image/Night%20Out.jpg)](https://masonmo25.github.io/Night-Out/)
+
 Project 1
 
 ## User Story
@@ -29,13 +31,13 @@ https://masonmo25.github.io/Night-Out/
 * Joseph Strezembosz (@JoeBosz)
 * Tony Mai (@tonymai6)
 
-
 ## APIs Used
-* [OpenStreetMap API](http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png)
-* [Yelp Fusion API](https://www.yelp.com/developers/documentation/v3/get_started)
 
+* [Leaflet](https://leafletjs.com/)
+* [Yelp Fusion API](https://www.yelp.com/developers/documentation/v3/get_started)
+* [Crypto-JS](https://github.com/brix/crypto-js)
+* [Leaflet-locatecontrol](https://github.com/domoritz/leaflet-locatecontrol)
 
 ## Frameworks
 
 * CSS - [Bulma](https://bulma.io/)
-![Alt text](assets/image/Night%20Out.jpg)

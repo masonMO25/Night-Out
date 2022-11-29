@@ -11,10 +11,10 @@
     <link rel="stylesheet" href="assets/style/style.css">
     <!-- Leaflet CSS-->
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css" integrity="sha256-kLaT2GOSpHechhsozzB+flnD+zUyjE2LlfWPgU04xyI=" crossorigin="" />
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet.locatecontrol@0.78.0/dist/L.Control.Locate.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet-locatecontrol/0.78.0/L.Control.Locate.min.css" integrity="sha512-IlIXbyZEmmeF+tke8OOZzxTAN+zU31Ye+CBvZR6wylo37OaqtdRMXYwPuwwV2cup5DE4gwEeWWv0SCBJsLW18g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <!-- Leaflet JS-->
     <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js" integrity="sha256-WBkoXOwTeyKclOHuWtc+i2uENFpDZ9YPdf5Hf+D7ewM=" crossorigin=""></script>
-    <script src="https://cdn.jsdelivr.net/npm/leaflet.locatecontrol@0.78.0/dist/L.Control.Locate.min.js" charset="utf-8"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet-locatecontrol/0.78.0/L.Control.Locate.min.js" integrity="sha512-WoTSCN23B1KFkgOr9k5UThIhriK5LBl2OO6+WPYk242MTKcga7TqsIEVRv+0uu8fRtia9s/Jyf7FqW1E98yYNw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <!-- One more library to keep our API key safe -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js" integrity="sha512-E8QSvWZ0eCLGk4km3hxSsNmGWbLtSCSUcewDQPQWZF6pEU8GlT8a5fF32wOl1i8ftdMhssTrF/OhyGWwonTcXA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/sha512.min.js" integrity="sha512-iVz09aQOY2fbdnKQh7kJ0Q9h2ZVjMsql2IT6mI+qziZdJ7bT/guIovUCCE5bx1qzc4mnnUKyGkArkkGJ1zap0g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
@@ -24,14 +24,8 @@
     <script defer src="assets/script/script.js"></script>
 </head>
 <body>
-    <!-- TODO: Fix this. It is covering other elements including the header and footer. -->
-    <!-- TODO: Take a look at this later. -->
-    <!-- turns out we don't need to put the video in a div. -->
-    <!-- TODO: get a poster (cover image) for our video if it doesn't work -->
-    <!-- UPDATE: I was told there was a poster. Did someone forget to merge a branch? -->
-    <!-- See https://css-tricks.com/full-page-background-video-styles/ -->
-    
-    <video poster="./assets/image/restaurant poster background.jpg" id="bgvid" playsinline autoplay muted loop>
+    <!-- See https://css-tricks.com/full-page-background-video-styles/ -->    
+    <video poster="./assets/image/background-poster.png" id="bgvid" playsinline autoplay muted loop>
         <source src="./assets/video/background-video.mp4" type="video/mp4">
     </video>
     <!-- To fix the problem wtih things being buried under the div, everything else should go in a div on top -->
@@ -136,9 +130,18 @@
             </form>
         </div>
         <div class="card side_by_side">
-            <div id="results">
-                <h2>Results Demo</h2>
-                <!-- Generate results here -->
+            <div id="results" class="styled-scrollbars">
+                <blockquote>
+                    <p><strong>We need to ask you to do a couple things to get this working.</strong></p>
+                    <p> Our app is awesome, but it's not perfect. For the best experience, we need to ask you to do two things.</p>
+                    <ol>
+                        <li>Visit <a href="https://cors-anywhere.herokuapp.com/corsdemo">cors-anywhere.herokuapp.com/corsdemo</a> and click on the button that says "Request temporary access to the demo server" so that the Yelp API can work.</li>
+                        <li>Allow your browser to let us use your location so that our map stuff can work.</li>
+                    </ol>
+                    <p>Once these things are done, the app will work perfectly.</p>
+                    <p><strong>Thank you for using our app.</strong></p>
+                    <p>This notice will be replaced with search results after you search.</p>
+                </blockquote>
             </div>
             <div id="map"></div> 
         </div>
@@ -146,7 +149,8 @@
     <!-- Note: DON'T use Bulma's .footer class. It sucks. -->
     <footer class="container">
         <ul>
-            <li><a href="https://github.com/masonMO25/Night-Out" title="Fork our project on Github">GitHub</a></li>
+            <li><a href="https://github.com/masonMO25/Night-Out" title="Fork our project on Github">Night Out GitHub</a></li>
+            <li>Search results powered by <a href="https://www.yelp.com/developers/documentation/v3/">Yelp Fusion API</a></li>
         </ul>
     </footer>
 
