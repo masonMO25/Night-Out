@@ -34,6 +34,7 @@ https://masonmo25.github.io/Night-Out/
 ## APIs Used
 
 * [Leaflet](https://leafletjs.com/)
+* [OpenStreetMap](openstreetmap.org/)
 * [Yelp Fusion API](https://www.yelp.com/developers/documentation/v3/get_started)
 * [Crypto-JS](https://github.com/brix/crypto-js)
 * [Leaflet-locatecontrol](https://github.com/domoritz/leaflet-locatecontrol)

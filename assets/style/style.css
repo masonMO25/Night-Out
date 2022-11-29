@@ -6,6 +6,10 @@
     --ts: 2px 2px 2px rgba(0,0,0,70%);
     /* border radius */
     --br: 10px;
+
+  --scrollbar-foreground: rgba(153,153,153,70%);
+  --scrollbar-background: rgba(51,51,51,70%);
+
 }
 
 /*
@@ -13,6 +17,22 @@ html,body {
   height: 100vh;
 }
 */
+
+/* Scrollbar styles - for the window. For the results section, see .styled-scrollbars */
+/* See https://css-tricks.com/the-current-state-of-styling-scrollbars-in-css/ */
+::-webkit-scrollbar {
+  width: 10px; /* Mostly for vertical scrollbars */
+  height: 10px; /* Mostly for horizontal scrollbars */
+}
+
+/* The window scrollbars don't support alpha channel, so I used rgb instead or rgba. --JC */
+::-webkit-scrollbar-thumb { /* Foreground */
+  background: rgb(153,153,153) /*var(--scrollbar-foreground);*/
+  border-radius: 5px;
+}
+::-webkit-scrollbar-track { /* Background */
+  background: rgb(51,51,51); /* var(--scrollbar-background); */
+}
 
 body {
     /* TODO: What font? */
@@ -48,15 +68,6 @@ a[href]:hover {
   color: #ffcc00;
 }
 
-
-video {
-  object-fit: cover;
-  width: 100vw;
-  height: 100vw;
-  position: fixed;
-  top: 0;
-  left: 0;
-}
 
 header, main, footer {
   background-color: rgba(51,51,51,70%); /* Using an RGBA color to give it a transparent color */
@@ -277,7 +288,25 @@ button:hover {
 #results {
   width: 40vw; /* 40% of the screen is results */
   /* aspect-ratio: 1; */
-  overflow-y:scroll;  /* TODO: Change this back to auto later */
+  overflow-y:auto;  /* Allow our results to overflow and use scrollbars when needed */
+}
+
+/* Let's style the scrollbar for the results. */
+/* TODO: Highlight the bars when hovering or grabbed */
+.styled-scrollbars {
+  /* Foreground, Background */
+  scrollbar-color: var(--scrollbar-foreground) var(--scrollbar-background);
+}
+.styled-scrollbars::-webkit-scrollbar {
+  width: 10px; /* Mostly for vertical scrollbars */
+  height: 10px; /* Mostly for horizontal scrollbars */
+}
+.styled-scrollbars::-webkit-scrollbar-thumb { /* Foreground */
+  background: var(--scrollbar-foreground);
+  border-radius: 5px;
+}
+.styled-scrollbars::-webkit-scrollbar-track { /* Background */
+  background: var(--scrollbar-background);
 }
 
 #map {
@@ -295,13 +324,14 @@ hr {
   width: 100px;
 }
 
-/* This will NOT override .container in bulma. */
+/* This will NOT override .container in Bulma. */
 /*
 .container {
   display: block;
 }
 */
 
+/* Leave bold text alone, Bulma! */
 strong {
   color: #fff !important;
 }
@@ -309,4 +339,38 @@ strong {
 /* A request for more padding was made. This is just one of the things I changed. There's a couple of other things above. */
 form > h2 {
   margin-left: 6px;
+}
+
+/* Moved it down here because the video stopped covering the whole page for some reason when it was higher up in this document. */
+video {
+  object-fit: cover;
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+}
+
+blockquote {
+  margin: 2em;
+  background-color: rgba(64,64,64,70%);
+  box-shadow: var(--bs);
+  padding: 3px;
+}
+
+blockquote > p {
+  margin-left: 1em;
+  margin-right: 1em;
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
+}
+
+/* We need to define the margins for our list, otherwise they appear outside of the blockquote. IDK why Bulma does this, but it is dumb. */
+blockquote > ol {
+  margin-left: 2em;
+  margin-right: 2em;
+}
+
+blockquote > ol > li {
+  display: list-item;
 }
