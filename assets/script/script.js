@@ -5,17 +5,32 @@
 
 // TODO: Apply the geolocation using the Geolocation API later.
 
+/*
 let mapOptions = {
     center: [38.630737,-90.199501],
     zoom: 13
 };
 
 let map = new L.map('map' , mapOptions);
+*/
 
+// Adds OpenStreetMap as a layer
+/*
 let layer = new L.TileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-});;
+});
 map.addLayer(layer);
+*/
+
+// Simplify our map construction
+let map = new L.map('map',{
+    center: [38.630737,-90.199501],
+    zoom: 13
+});
+
+map.addLayer(new L.TileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+}));
 
 /* Wanted to use Awesome Markers (https://github.com/lennardv2/Leaflet.awesome-markers), 
  * but they stopped being "awesome" when they made their library proprietary.
@@ -23,6 +38,10 @@ map.addLayer(layer);
  * https://github.com/pointhi/leaflet-color-markers
  * A local set of icons is now on the assets/image directory
  */
+
+let markers = L.layerGroup();   // We need an object that will represent a layer
+markers.addTo(map);
+
 
 const redIcon = new L.Icon({
     iconUrl: './assets/image/leaflet-color-markers/marker-icon-red.png',
@@ -201,8 +220,6 @@ restaurantSearch.addEventListener("click", (ev) => {
 // https://stackoverflow.com/questions/31879576/what-is-the-most-elegant-way-to-insert-objects-between-array-elements
 const interleave = (arr, thing) => [].concat(...arr.map(n => [n, thing])).slice(0, -1);
 
-// You guys remember that we can't use the Yelp API on the client side to do queries, right? WHOOPS!
-
 const findRestaurants = document.querySelector("#findRestaurants");     // get our form
 
 function findTheRestaurants(){
@@ -231,6 +248,7 @@ function findTheRestaurants(){
                         .join("&");
     console.log(urlParams);
 
+    // Since we can't use the Yelp API on the client side to do queries
     // We need ot use the cors-anywhere Heroku App to bypass the Yelp API
     let queryURL = "https://cors-anywhere.herokuapp.com/https://api.yelp.com/v3/businesses/search";
 
@@ -278,6 +296,15 @@ function findTheRestaurants(){
             }
         }
 
+        // TODO: If our map has markers, clear them out
+        //if(map.hasLayer(markers))
+        //if(markers !== undefined)
+        if(markers.getLayers().length > 0){
+            //map.removeLayer(markers);
+            //map.addLayer()
+            markers.clearLayers();
+        }
+
         const search_header = document.createElement("h3");
         //const term = localStorage.getItem("term");
         //const location = localStorage.getItem("location");
@@ -292,13 +319,14 @@ function findTheRestaurants(){
         }
         //map.panTo(data.region.center);
 
-        /* The Red marker will show where you are. The green ones will show businesses */
-        
-        let here = new L.LatLng(data.region.center.latitude,data.region.center.longitude);
-        let marker = new L.Marker(here,{icon:greenIcon});
-        marker.addTo(map);
-
+        let here = new L.LatLng(data.region.center.latitude,data.region.center.longitude)
         map.panTo(here);
+        /* The Red marker will show where you are. The green ones will show businesses */
+        let marker = new L.Marker(here,{icon:greenIcon});
+        //marker.addTo(map);
+        marker.addTo(markers);
+
+;
 
         let data_results = data.businesses.map(business => {
             const result = document.createElement("div");
@@ -328,8 +356,9 @@ function findTheRestaurants(){
 
             let biz_point = new L.latLng(business.coordinates.latitude,business.coordinates.longitude);
             let biz_marker = new L.Marker(biz_point,{icon:redIcon});
-            biz_marker.addTo(map);
             biz_marker.bindPopup(result);
+            //biz_marker.addTo(map);
+            biz_marker.addTo(markers);
             // let biz_markie = "OH SNAP!";
 
 
