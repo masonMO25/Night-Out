@@ -16,7 +16,8 @@ SO THAT I can decide where I want to eat
 GIVEN I am hungry
 WHEN I enter my location
 THEN a list of nearby restaurants appears on my screen.
-
+WHEN I click a marker on a map
+THEN I see a restaurant.
 ```
 
 
