@@ -352,11 +352,13 @@ function findTheRestaurants(){
                 biz_distance
             );
             //console.log(result);
-            //results.append(result);  
+            //results.append(result);
+            
+            let result_clone = result.cloneNode(true);
 
             let biz_point = new L.latLng(business.coordinates.latitude,business.coordinates.longitude);
             let biz_marker = new L.Marker(biz_point,{icon:redIcon});
-            biz_marker.bindPopup(result);
+            biz_marker.bindPopup(result_clone);
             //biz_marker.addTo(map);
             biz_marker.addTo(markers);
             // let biz_markie = "OH SNAP!";

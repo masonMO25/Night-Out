@@ -27,7 +27,7 @@ html,body {
 
 /* The window scrollbars don't support alpha channel, so I used rgb instead or rgba. --JC */
 ::-webkit-scrollbar-thumb { /* Foreground */
-  background: rgb(153,153,153) /*var(--scrollbar-foreground);*/
+  background: rgb(153,153,153); /*var(--scrollbar-foreground);*/
   border-radius: 5px;
 }
 ::-webkit-scrollbar-track { /* Background */
