@@ -329,6 +329,7 @@ function findTheRestaurants(){
             let biz_point = new L.latLng(business.coordinates.latitude,business.coordinates.longitude);
             let biz_marker = new L.Marker(biz_point,{icon:redIcon});
             biz_marker.addTo(map);
+            biz_marker.bindPopup(result);
             // let biz_markie = "OH SNAP!";
 
 

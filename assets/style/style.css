@@ -374,3 +374,8 @@ blockquote > ol {
 blockquote > ol > li {
   display: list-item;
 }
+
+/* Bulma was messing with this too! Unbeleiveable! */
+.leaflet-popup-content > .result > p > strong {
+  color: #000 !important;
+}
