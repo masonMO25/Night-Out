@@ -17,8 +17,55 @@ let layer = new L.TileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
 });;
 map.addLayer(layer);
 
-let marker = new L.Marker(mapOptions.center);
+/* Wanted to use Awesome Markers (https://github.com/lennardv2/Leaflet.awesome-markers), 
+ * but they stopped being "awesome" when they made their library proprietary.
+ * So I'm using leaflet-color-markers instead.
+ * https://github.com/pointhi/leaflet-color-markers
+ * A local set of icons is now on the assets/image directory
+ */
+
+const redIcon = new L.Icon({
+    iconUrl: './assets/image/leaflet-color-markers/marker-icon-red.png',
+    shadowUrl: './assets/image/leaflet-color-markers/marker-shadow.png',
+    iconSize: [25, 41],
+    iconAnchor: [12, 41],
+    popupAnchor: [1, -34],
+    shadowSize: [41, 41]
+});
+
+const greenIcon = new L.Icon({
+    iconUrl: './assets/image/leaflet-color-markers/marker-icon-green.png',
+    shadowUrl: './assets/image/leaflet-color-markers/marker-shadow.png',
+    iconSize: [25, 41],
+    iconAnchor: [12, 41],
+    popupAnchor: [1, -34],
+    shadowSize: [41, 41]
+});
+
+const blueIcon = new L.Icon({
+    iconUrl: './assets/image/leaflet-color-markers/marker-icon-blue.png',
+    shadowUrl: './assets/image/leaflet-color-markers/marker-shadow.png',
+    iconSize: [25, 41],
+    iconAnchor: [12, 41],
+    popupAnchor: [1, -34],
+    shadowSize: [41, 41]
+});
+
+const goldIcon = new L.Icon({
+    iconUrl: './assets/image/leaflet-color-markers/marker-icon-gold.png',
+    shadowUrl: './assets/image/leaflet-color-markers/marker-shadow.png',
+    iconSize: [25, 41],
+    iconAnchor: [12, 41],
+    popupAnchor: [1, -34],
+    shadowSize: [41, 41]
+});
+
+// We need to remove this marker. We can still center the map over St. Louis though,
+// At least until we get the Geolocation API set up.
+/*
+let marker = new L.Marker(mapOptions.center,{icon:redIcon});
 marker.addTo(map);
+*/
 
 // Earlier I had stated that the locate wasn't working. It probably would have been helpful to state that Leaflet Locate (https://github.com/domoritz/leaflet-locatecontrol) was used.
 L.control.locate().addTo(map);
@@ -110,6 +157,12 @@ function decrypt(input,key){
 // TODO: Fix this!
 cityInput.addEventListener("keyup", (ev) => {
     ev.preventDefault();
+    /*
+    restaurantSearch.disabled = (ev.target.value.length === 0 || restaurantQuery.value.length === 0);
+    if(!restaurantSearch.disabled && ev.keyCode === 13){
+        // TODO: Run our search
+        findTheRestaurants();
+    */
 });
 
 // TODO: Make sure stateInput is not the first item on the list
@@ -139,11 +192,12 @@ restaurantQuery.addEventListener("keyup", (ev) => {
 
 /*
 restaurantSearch.addEventListener("click", (ev) => {
-    ev.preventDefault();    // TODO: Remove this later when we use our form
+    ev.preventDefault();
     // TODO: Run our search
 });
 */
 
+// TODO: remove this later. It didn't work.
 // https://stackoverflow.com/questions/31879576/what-is-the-most-elegant-way-to-insert-objects-between-array-elements
 const interleave = (arr, thing) => [].concat(...arr.map(n => [n, thing])).slice(0, -1);
 
@@ -237,7 +291,14 @@ function findTheRestaurants(){
             "zoom" : 13
         }
         //map.panTo(data.region.center);
-        map.panTo(new L.LatLng(data.region.center.latitude,data.region.center.longitude));
+
+        /* The Red marker will show where you are. The green ones will show businesses */
+        
+        let here = new L.LatLng(data.region.center.latitude,data.region.center.longitude);
+        let marker = new L.Marker(here,{icon:greenIcon});
+        marker.addTo(map);
+
+        map.panTo(here);
 
         let data_results = data.businesses.map(business => {
             const result = document.createElement("div");
@@ -265,8 +326,8 @@ function findTheRestaurants(){
             //console.log(result);
             //results.append(result);  
 
-            let biz_point = [business.coordinates.latitude,business.coordinates.longitude];
-            let biz_marker = new L.Marker(biz_point);
+            let biz_point = new L.latLng(business.coordinates.latitude,business.coordinates.longitude);
+            let biz_marker = new L.Marker(biz_point,{icon:redIcon});
             biz_marker.addTo(map);
             // let biz_markie = "OH SNAP!";
 
