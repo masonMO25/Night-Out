@@ -12,12 +12,15 @@ let mapOptions = {
 
 let map = new L.map('map' , mapOptions);
 
-let layer = new L.TileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png');
+let layer = new L.TileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+});;
 map.addLayer(layer);
 
 let marker = new L.Marker(mapOptions.center);
 marker.addTo(map);
 
+L.control.locate().addTo(map);
 
 /*
 let mapOptions = {
