@@ -4,6 +4,22 @@
 // TODO: Display data
 
 // TODO: Apply the geolocation using the Geolocation API later.
+
+let mapOptions = {
+    center: [38.630737,-90.199501],
+    zoom: 13
+};
+
+let map = new L.map('map' , mapOptions);
+
+let layer = new L.TileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png');
+map.addLayer(layer);
+
+let marker = new L.Marker(mapOptions.center);
+marker.addTo(map);
+
+
+/*
 let mapOptions = {
     center:[38.616207, -90.250379],
     zoom:13
@@ -18,6 +34,7 @@ map.addLayer(layer);
 //let marker = new L.Marker([38.616207, -90.250379]);
 let marker = new L.Marker(mapOptions.center);
 marker.addTo(map);
+*/
 
 const cityInput = document.querySelector("#city");
 const stateInput = document.querySelector("#state");
@@ -211,6 +228,7 @@ function findTheRestaurants(){
     }).then(res => res.text()).then((text) => {
         // Where the magic happens!
         const results = document.querySelector("#results");
+        //const mapPanel = document.querySelector("#map");
 
         // TODO: Why is this not working?
         // Clear our results after every search
@@ -227,6 +245,22 @@ function findTheRestaurants(){
         results.append(search_header,document.createElement("br"));
         //results.innerText = JSON.stringify(text,null,2);  // output some JSON Data
         const data = JSON.parse(text);
+
+        mapOptions = {
+            "center" : data.region.center,
+            "zoom" : 13
+        }
+
+        //map = new L.map('map' , mapOptions);
+
+
+        /*
+        const whereami = data.region.center;
+        mapOptions.center = whereami;
+        delete map;
+        map = new L.map('map' , mapOptions);
+        */
+
         let data_results = data.businesses.map(business => {
             const result = document.createElement("div");
             result.classList.add("result");
@@ -257,19 +291,26 @@ function findTheRestaurants(){
             );
             //console.log(result);
             //results.append(result);  
+
+            let biz_point = [business.coordinates.latitude,business.coordinates.longitude];
+            let biz_marker = new L.Marker(biz_point);
+            biz_marker.addTo(map);
+
+
+
+            //let popup = L.popup().setLatLng(biz_point).setContent(result);
+
+            // I haven't created the marker yet but this will be put here for the moment
+            //let marker = L.marker(biz_point).openOn(map);
+            //marker.bindPopup(popup).openPopup();
+            //marker.addEventListener("click",(ev) =>{});
+
             return result;
         });
 
         //console.log(data_results.length);
-        data_results = Array.from(data_results).reduce((arr, item, idx) => arr.concat(item, document.createElement("hr")), []).slice(0,-1).flat();
-        //console.log(data_results);        
+        data_results = Array.from(data_results).reduce((arr, item) => arr.concat(item, document.createElement("hr")), []).slice(0,-1).flat();
         results.append(...data_results);
-        /*
-        for(let i = 0; i < data_results.length; i++){
-            results.appendChild(data_results[i]);
-        }
-        */
-
 
     }).catch((err) => {
         // Where the magic SHOULDN'T happen
