@@ -27,9 +27,11 @@ const zipInput = document.querySelector("#zip");
 // Note: Somebody forgot to add an argument. I fixed it. --JC
 // TODO: What if we wanted to do a save search based on city and state or geocoordinates?
 // We might want to redo this function
-const saveSearch = function(zipcode){
-    localStorage.setItem("zipcode", zipcode);
+/*
+const saveSearch = function(data){
+    localStorage.setItem("data", data);
 };
+*/
 
 // TODO: I think we should get rid of this function
 const formSumbitHandler = function(event){
@@ -37,6 +39,7 @@ const formSumbitHandler = function(event){
     let city = cityInput.value.trim();
     let state = stateInput.value;   // This doesn't need a trim
     let zip = zipInput.value.trim();
+    let term = term.value.trim();
 
     let location="", zipCode="";
     if(city.length > 0 && state !== ""){
@@ -46,10 +49,19 @@ const formSumbitHandler = function(event){
         zipCode = zip;                      // Do a zip code search
     }
     if(location !== "" || zipCode !== ""){
-        saveSearch("location",[location,zipCode].join(" ").trim());
+        localStorage.setItem("location",[location,zipCode].join(" ").trim());
     }else{
         let error1 = document.querySelector("#error1")
-        error.innerText = "Please enter a location";
+        error1.innerText = "Please enter a location";
+        setTimeout(()=>{
+            error1.innerText = "";
+        },5000);    // Clear the error after about five seconds
+    }
+    if(term !== ""){
+        localStorage.setItem("term",term);
+    }else{
+        let error2 = document.querySelector("#error2")
+        error2.innerText = "Please enter a location";
         setTimeout(()=>{
             error1.innerText = "";
         },5000);    // Clear the error after about five seconds
@@ -126,6 +138,9 @@ restaurantSearch.addEventListener("click", (ev) => {
 });
 */
 
+// https://stackoverflow.com/questions/31879576/what-is-the-most-elegant-way-to-insert-objects-between-array-elements
+const interleave = (arr, thing) => [].concat(...arr.map(n => [n, thing])).slice(0, -1);
+
 // You guys remember that we can't use the Yelp API on the client side to do queries, right? WHOOPS!
 
 const findRestaurants = document.querySelector("#findRestaurants");     // get our form
@@ -136,7 +151,14 @@ function findTheRestaurants(){
     // TODO: later get this search with lastSearch
     // TODO: Queue a list of the last 10 searches
     // TODO: Purge those searches
-    console.log(JSON.stringify([...data.entries()]));
+    //console.log(JSON.stringify([...data.entries()]));
+
+    let search_data = Object.fromEntries([...data.entries()]);
+    console.log("search_data");
+    console.log(search_data);
+    let search_location = search_data.location;
+    let search_term     = search_data.term;
+    console.log(search_location,search_term);
 
     // What's going on here?
     // We are converting or data.entries() to an array
@@ -149,9 +171,7 @@ function findTheRestaurants(){
                         .join("&");
     console.log(urlParams);
 
-
     // We need ot use the cors-anywhere Heroku App to bypass the Yelp API
-
     let queryURL = "https://cors-anywhere.herokuapp.com/https://api.yelp.com/v3/businesses/search";
 
     // Safely encrypted
@@ -175,19 +195,10 @@ function findTheRestaurants(){
         "032bf2d44e031566"
     ];
 
-    /*
-    // TODO: Wanted to do this, but maybe later.
-    let hex = /[0-9a-fA-F]+/;
-    let pinky = data.filter((x) => !(hex.test(x));
-    let brain = data.filter((x) => (hex.test(x));
-    */
-
     let pinky = yelp.shift();       // "Gee Brain, what do you want to do tonight?"
     let brain = yelp.join("");      // "The same thing we do every night, Pinky. Try to take over the world!"
 
-    let req = queryURL + "?" + urlParams;
-
-    fetch(req,{
+    fetch([queryURL,urlParams].join("?"),{
         "method"  : "get",
         "mode" : "cors",            // Seems pretty obvious we should use this
         "headers" : {
@@ -195,17 +206,69 @@ function findTheRestaurants(){
             "x-requested-with" : "xmlhttprequest",
             "Access-Control-Allow-Origin" : "*",
             "Authorization" : `Bearer ${decrypt(brain,pinky)}`
-        },
-        "data" : {}
+        }
     }).then(res => res.text()).then((text) => {
         // Where the magic happens!
         const results = document.querySelector("#results");
-        results.innerText = JSON.stringify(text,null,2);
-        // WE OWE YOU MAP DATA!
+
+        // TODO: Why is this not working?
+        // Clear our results after every search
+        if(results.hasChildNodes){
+            while(results.lastElementChild){
+                results.removeChild(results.lastElementChild);
+            }
+        }
+
+        const search_header = document.createElement("h3");
+        const term = localStorage.getItem("term");
+        const location = localStorage.getItem("location");
+        search_header.innerHTML = `Results for ${term} in ${location}`;
+        results.append(search_header);
+        //results.innerText = JSON.stringify(text,null,2);  // output some JSON Data
+        const data = JSON.parse(text);
+        let data_results = data.businesses.map(business => {
+            const result = document.createElement("div");
+            result.classList.add("result");
+            const biz_name = document.createElement("p");
+            biz_name.innerHTML = `<strong>${business.name}</strong>`;
+            const biz_rate = document.createElement("p");
+            biz_rate.innerHTML = `${business.rating} out of 5 stars`;
+            /**
+             * coordinates.latitude,
+             * coordinates.longitude
+             */
+            const biz_address = document.createElement("p");
+            biz_address.innerHTML = business.location.display_address.join("<br>");
+            const biz_phone  = document.createElement("p");     // TODO: Try input tel later
+            biz_phone.innerHTML = business.display_phone;
+            biz_distance = document.createElement("p");
+            // Distance is in meters, so we need to convert to miles
+            const m_in_mi = 1609.34;
+            biz_distance.innerHTML = `${Number.parseFloat(business.distance / m_in_mi).toFixed(2)} mi.`;
+
+            result.append(
+                biz_name,
+                biz_rate,
+                biz_address,
+                biz_phone,
+                biz_distance
+            );
+            //console.log(result);
+            //results.append(result);  
+            return result;
+        });
+        const hr = document.createElement("hr");
+        data_results = interleave(data_results,hr);
+        //data_results = data_results.join("<hr>");
+        //console.log(...data_results);
+        //results.append(result);
+        results.append(...data_results);
+
+        // TODO: WE OWE YOU MAP DATA!
 
     }).catch((err) => {
         // Where the magic SHOULDN'T happen
-        console.error("Error: ", error);
+        console.error("Error: ", err);
     });
 
 }

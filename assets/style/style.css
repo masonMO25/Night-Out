@@ -249,6 +249,7 @@ button:hover {
   padding: 3px; 
   gap: 3px;   /* Surprisingly, this property does work in flexbox as well as grid.*/
   max-height: 60vh; /* We need limit one of our cards' height so that everything fits otherwise we won't see the header or footer. Why not this one. The map should resize anyway. */
+  min-height: 60vh;
 }
 
 /* Our results and map look better as a 40-60 split */
@@ -279,3 +280,7 @@ hr {
   display: block;
 }
 */
+
+strong {
+  color: #fff !important;
+}

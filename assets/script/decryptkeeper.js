@@ -14,7 +14,7 @@ const paste = document.querySelector("#paste");
 const copy  = document.querySelector("#copy");
 const message = document.querySelector("#message");
 
-crunch.disabled = true;
+crunch.disabled = true;   // TODO: Ignore this. This was for our demo pages.
 copy.disabled = true;
 
 /* Borrowed alot of this from https://stackoverflow.com/questions/72570359/cryptojs-javascript-aes-128-ecb-encrypt-decrypt
