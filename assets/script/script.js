@@ -354,22 +354,17 @@ function findTheRestaurants(){
             //console.log(result);
             //results.append(result);
             
-            let result_clone = result.cloneNode(true);
+            let result_clone = result.cloneNode(true);      // DEEP CLONING! (Need this to prevent Leaflet from stealing the original copy)
 
             let biz_point = new L.latLng(business.coordinates.latitude,business.coordinates.longitude);
-            let biz_marker = new L.Marker(biz_point,{icon:redIcon});
+            let biz_marker = new L.Marker(biz_point,{
+                icon:redIcon,
+                title: business.name
+            });
             biz_marker.bindPopup(result_clone);
             //biz_marker.addTo(map);
             biz_marker.addTo(markers);
             // let biz_markie = "OH SNAP!";
-
-
-            //let popup = L.popup().setLatLng(biz_point).setContent(result);
-
-            // I haven't created the marker yet but this will be put here for the moment
-            //let marker = L.marker(biz_point).openOn(map);
-            //marker.bindPopup(popup).openPopup();
-            //marker.addEventListener("click",(ev) =>{});
 
             return result;
         });
